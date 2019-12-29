@@ -1,7 +1,7 @@
 {
-  "name": "ndl-express-extras",
-  "version": "1.0.0",
-  "description": "Node express extras",
+  "name": "express-extra-tool",
+  "version": "0.0.1",
+  "description": "Nodejs function suport for express",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
