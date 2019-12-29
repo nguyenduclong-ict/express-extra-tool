@@ -1,6 +1,6 @@
 {
   "name": "express-extra-tool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nodejs function suport for express",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,11 @@
   },
   "author": "Nguyen Duc Long",
   "license": "ISC",
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.8.3"
+  }
 }
