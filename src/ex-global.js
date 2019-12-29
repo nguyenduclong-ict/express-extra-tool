@@ -177,6 +177,13 @@ function importAll(dirPath, execpt) {
   return items;
 }
 
+function createError(message, code) {
+  const err = new Error(message);
+  err.code = code;
+  err.status = code;
+  return err;
+}
+
 module.exports = {
   makeURL,
   log,
@@ -186,5 +193,6 @@ module.exports = {
   clean,
   escapeRegex,
   validateQuery,
-  importAll
+  importAll,
+  createError
 };
