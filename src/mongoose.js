@@ -129,15 +129,16 @@ function declareHook(schema, schemaName = '') {
 
 async function connectDatabase(config, options) {
   // make db connect
-  const { host, user, pass, dbName, port } = config;
+  const { host, dbName, port } = config;
+  const { user, pass } = options;
   let uri = `mongodb://${host}:${port}/${dbName}`;
-  let options = options || {
+
+  options = options || {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     user,
     pass
   };
-  options = params || options;
 
   // Connect mongoose
   return new Promise((resolve, reject) => {
