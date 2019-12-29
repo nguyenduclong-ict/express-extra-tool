@@ -3,6 +3,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
 /**
+ * Declare CRUD for mongoose model
  * @param {mongoose.Model} model
  * @param {string} name
  *
@@ -119,11 +120,18 @@ function declareHook(schema, schemaName = '') {
   });
 }
 
-async function connectDatabase(params) {
+/**
+ *
+ * @param {{host:string,user:string,pass:string,dbName:string,port:number}} config
+ * @param {*} options
+ * @returns {mongoose.Mongoose}
+ */
+
+async function connectDatabase(config, options) {
   // make db connect
-  const { host, user, pass, dbName, port } = require('../config').mongodb;
+  const { host, user, pass, dbName, port } = config;
   let uri = `mongodb://${host}:${port}/${dbName}`;
-  let options = {
+  let options = options || {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     user,
