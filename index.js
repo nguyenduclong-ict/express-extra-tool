@@ -4,9 +4,9 @@ const { connectDatabase, declareHook, declareCRUD } = require('./src/mongoose');
 const jwt = require('./src/jwt');
 /**
  * Import all in ex-global to global variable
- * @param {[string]} names Name of function you want import to global
+ * @param {{ names : [string], dirroot : string, additions : [{name : string, value : any }]}} param0 Name of function you want import to global
  */
-function initGlobal(names, dirroot) {
+function initGlobal({ names, dirroot }) {
   global.__dirroot = dirroot;
   if (!names) {
     Object.keys(functions).forEach(key => {
@@ -19,6 +19,9 @@ function initGlobal(names, dirroot) {
         global['_' + key] = functions[key];
       });
   }
+  additions.forEach(({ name, value }) => {
+    global[name] = value;
+  });
 }
 
 module.exports = {
