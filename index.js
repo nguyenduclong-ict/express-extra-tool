@@ -6,7 +6,7 @@ const jwt = require('./src/jwt');
  * Import all in ex-global to global variable
  * @param {{ names : [string], dirroot : string, additions : [{name : string, value : any }]}} param0 Name of function you want import to global
  */
-function initGlobal({ names, dirroot }) {
+function initGlobal({ names, dirroot, additions }) {
   global.__dirroot = dirroot;
   if (!names) {
     Object.keys(functions).forEach(key => {

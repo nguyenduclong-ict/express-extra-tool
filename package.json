@@ -1,6 +1,6 @@
 {
   "name": "express-extra-tool",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Nodejs function suport for express",
   "main": "index.js",
   "scripts": {
