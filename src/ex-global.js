@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 
@@ -47,7 +45,7 @@ Object.defineProperty(global, '__line', {
  * Same console.log and add current line to output
  * @param  {...any} args something to log
  */
-function log(...args) {
+function log() {
   const orig = Error.prepareStackTrace;
   Error.prepareStackTrace = (_, stack) => stack;
   const err = new Error();

@@ -1,5 +1,3 @@
-'use strict';
-
 const functions = require('./src/ex-global');
 const { initRouter } = require('./src/router');
 const { connectDatabase, declareHook, declareCRUD } = require('./src/mongoose');
