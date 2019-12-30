@@ -18,7 +18,7 @@ function initRouter(
 ) {
   // init config
   routerPath = routerPath || path.join(__dirroot, 'routes');
-  middlewarePath = middlewarePath || path.join(__dirname, 'middlewares');
+  middlewarePath = middlewarePath || path.join(__dirroot, 'middlewares');
   exceptFile = exceptFile || /^_/gm;
   //
   const routes = importAll(routerPath, exceptFile);
