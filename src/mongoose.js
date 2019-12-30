@@ -124,7 +124,7 @@ function declareHook(schema, schemaName = '') {
  *
  * @param {{host:string,user:string,pass:string,dbName:string,port:number}} config
  * @param {object} options
- * @returns {mongoose.Mongoose}
+ * @returns {Promise<mongoose.Mongoose>}
  */
 
 async function connectDatabase(config, options = {}) {
@@ -150,7 +150,7 @@ async function connectDatabase(config, options = {}) {
       })
       .catch(error => {
         console.log('Connect database failure', '\n', error);
-        reject();
+        reject(error);
       });
   });
 }
