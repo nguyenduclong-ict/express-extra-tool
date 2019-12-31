@@ -39,7 +39,7 @@ function declareCRUD(model, name) {
       });
       const [list, count] = await Promise.all([
         task.lean().exec(),
-        model.count(query)
+        model.countDocuments(query)
       ]);
       // pager
       const pager = {
@@ -139,7 +139,7 @@ async function connectDatabase(config, options = {}) {
     pass,
     ...options
   };
-
+  console.log('connecting to database : ', host);
   // Connect mongoose
   return new Promise((resolve, reject) => {
     mongoose
