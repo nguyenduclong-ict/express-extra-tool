@@ -208,23 +208,23 @@ function debounceKey(func, wait) {
  * @param {object} params
  */
 
-function buildQuery(params) {
+function buildQuery(params, separator = '&') {
   function lean(value) {
     const arr = [undefined, null];
     return arr.includes(value) ? '' : value;
   }
   return Object.entries(params)
     .map(p => `${p[0]}=${lean(p[1])}`)
-    .join('&');
+    .join(separator);
 }
 
 /**
  * parse query string to object
  * @param {string} queryString
  */
-function parseQuery(queryString) {
+function parseQuery(queryString, separator = '&') {
   const obj = {};
-  queryString.split('&').forEach(item => {
+  queryString.split(separator).forEach(item => {
     let [key, value] = item.split('=');
     obj[key] = obj[key] ? [...obj[key], value] : value;
   });
