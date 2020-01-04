@@ -120,39 +120,4 @@ function declareHook(schema, schemaName = '') {
   });
 }
 
-/**
- *
- * @param {{host:string,user:string,pass:string,dbName:string,port:number}} config
- * @param {object} options
- * @returns {Promise<mongoose.Mongoose>}
- */
-
-async function connectDatabase(config, options = {}) {
-  // make db connect
-  const { host, dbName, port, user, pass } = config;
-  let uri = `mongodb://${host}:${port}/${dbName}`;
-
-  options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    user,
-    pass,
-    ...options
-  };
-  console.log('connecting to database : ', host);
-  // Connect mongoose
-  return new Promise((resolve, reject) => {
-    mongoose
-      .connect(uri, options)
-      .then(instance => {
-        console.log('database connect success');
-        resolve(instance);
-      })
-      .catch(error => {
-        console.log('Connect database failure', '\n', error);
-        reject(error);
-      });
-  });
-}
-
 module.exports = { connectDatabase, declareHook, declareCRUD };
