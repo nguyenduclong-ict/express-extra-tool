@@ -120,4 +120,4 @@ function declareHook(schema, schemaName = '') {
   });
 }
 
-module.exports = { connectDatabase, declareHook, declareCRUD };
+module.exports = { declareHook, declareCRUD };
