@@ -188,7 +188,7 @@ function createError(message, code) {
  * @param {Number} wait miliseconds
  */
 
-export function debounceKey(func, wait) {
+function debounceKey(func, wait) {
   var timeouts = {};
   return function() {
     var context = this;
@@ -208,7 +208,7 @@ export function debounceKey(func, wait) {
  * @param {object} params
  */
 
-export function buildQuery(params) {
+function buildQuery(params) {
   function lean(value) {
     const arr = [undefined, null];
     return arr.includes(value) ? '' : value;
@@ -222,7 +222,7 @@ export function buildQuery(params) {
  * parse query string to object
  * @param {string} queryString
  */
-export function parseQuery(queryString) {
+function parseQuery(queryString) {
   const obj = {};
   queryString.split('&').forEach(item => {
     let [key, value] = item.split('=');
