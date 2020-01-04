@@ -182,7 +182,58 @@ function createError(message, code) {
   return err;
 }
 
+/**
+ * Debounce function for special key, if different key, 2 func run parallel
+ * @param {Function} func (...args, key)
+ * @param {Number} wait miliseconds
+ */
+
+export function debounceKey(func, wait) {
+  var timeouts = {};
+  return function() {
+    var context = this;
+    var args = arguments;
+    var key = arguments[arguments.length - 1];
+    if (timeouts[key]) clearTimeout(timeouts[key]);
+    var later = function() {
+      timeouts[key] = null;
+      func.apply(context, args);
+    };
+    timeouts[key] = setTimeout(later, wait);
+  };
+}
+
+/**
+ * Make query string from object
+ * @param {object} params
+ */
+
+export function buildQuery(params) {
+  function lean(value) {
+    const arr = [undefined, null];
+    return arr.includes(value) ? '' : value;
+  }
+  return Object.entries(params)
+    .map(p => `${p[0]}=${lean(p[1])}`)
+    .join('&');
+}
+
+/**
+ * parse query string to object
+ * @param {string} queryString
+ */
+export function parseQuery(queryString) {
+  const obj = {};
+  queryString.split('&').forEach(item => {
+    let [key, value] = item.split('=');
+    obj[key] = obj[key] ? [...obj[key], value] : value;
+  });
+  return obj;
+}
+
 module.exports = {
+  parseQuery,
+  buildQuery,
   makeURL,
   log,
   omit,
@@ -192,5 +243,6 @@ module.exports = {
   escapeRegex,
   validateQuery,
   importAll,
-  createError
+  createError,
+  debounceKey
 };

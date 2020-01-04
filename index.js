@@ -23,7 +23,6 @@ function initGlobal({ names, dirroot, additions }) {
     global[name] = value;
   });
 }
-
 module.exports = {
   initGlobal,
   initRouter,
