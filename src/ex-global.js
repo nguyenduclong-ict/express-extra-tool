@@ -85,6 +85,7 @@ function log() {
   const line = callee.getLineNumber();
 
   const prefix = [`---${f}:`, line, '\n'];
+  const sufix = [];
   let color;
   switch (arguments[arguments.length - 1]) {
     case '%error%':
@@ -97,15 +98,15 @@ function log() {
       color = ConsoleColors.FgYellow;
       break;
     default:
-      color = ConsoleColors.Reset;
       break;
   }
   if (color) {
     prefix.unshift(color);
     prefix.push(color);
+    sufix.push(ConsoleColors.Reset);
     arguments[arguments.length - 1] = '';
   }
-  console.log(...prefix, ...arguments, ConsoleColors.Reset);
+  console.log(...prefix, ...arguments, ...sufix);
 }
 
 /**
