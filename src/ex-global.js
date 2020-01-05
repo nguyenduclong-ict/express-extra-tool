@@ -227,10 +227,11 @@ function importAll(dirPath, execpt) {
   return items;
 }
 
-function createError(message, code) {
+function createError(message, code, data) {
   const err = new Error(message);
   err.code = code;
   err.status = code;
+  Object.assign(err, data);
   return err;
 }
 
