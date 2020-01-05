@@ -85,32 +85,26 @@ function log() {
   const line = callee.getLineNumber();
   const prefix = [`---%s:`, f, line, '\n'];
 
-  if (arguments[arguments.length - 1] === '%error%') {
-    prefix.unshift(ConsoleColors.FgRed);
-    prefix.push(ConsoleColors.FgRed);
-    arguments[arguments.length - 1] = '';
-  } else {
-    prefix.unshift(ConsoleColors.FgCyan);
-    prefix.push(ConsoleColors.FgCyan);
+  let color;
+  switch (arguments[arguments.length - 1]) {
+    case '%error%':
+      color = ConsoleColors.FgRed;
+      break;
+    case '%success%':
+      color = ConsoleColors.FgGreen;
+      break;
+    case '%warning%':
+      color = ConsoleColors.FgYellow;
+      break;
+    default:
+      break;
+  }
+  if (color) {
+    prefix.unshift(color);
+    prefix.push(color);
     arguments[arguments.length - 1] = '';
   }
   console.log(...prefix, ...arguments);
-}
-
-/**
- * Same console.log and add current line to output
- * @param  {...any} args something to log
- */
-function logError() {
-  const orig = Error.prepareStackTrace;
-  Error.prepareStackTrace = (_, stack) => stack;
-  const err = new Error();
-  Error.captureStackTrace(err, arguments.callee);
-  const callee = err.stack[0];
-  Error.prepareStackTrace = orig;
-  const f = path.relative(process.cwd(), callee.getFileName());
-  const line = callee.getLineNumber();
-  console.log(`---%s:`, f, line, '\n', ...arguments);
 }
 
 /**
