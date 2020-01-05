@@ -83,8 +83,8 @@ function log() {
   Error.prepareStackTrace = orig;
   const f = path.relative(process.cwd(), callee.getFileName());
   const line = callee.getLineNumber();
-  const prefix = [`---%s:`, f, line, '\n'];
 
+  const prefix = [`---${f}:`, line, '\n'];
   let color;
   switch (arguments[arguments.length - 1]) {
     case '%error%':
@@ -97,6 +97,7 @@ function log() {
       color = ConsoleColors.FgYellow;
       break;
     default:
+      color = ConsoleColors.Reset;
       break;
   }
   if (color) {
@@ -104,7 +105,7 @@ function log() {
     prefix.push(color);
     arguments[arguments.length - 1] = '';
   }
-  console.log(...prefix, ...arguments);
+  console.log(...prefix, ...arguments, ConsoleColors.Reset);
 }
 
 /**
