@@ -1,3 +1,4 @@
+const { createError } = require('./ex-global');
 const jwt = require('jsonwebtoken');
 var JWT_SECRET, TOKEN_EXPIRES;
 
@@ -26,7 +27,7 @@ function sign(payload) {
     };
   } catch (error) {
     _log(error);
-    throw Error.createError(error.message, error.code || 500);
+    throw createError(error.message, error.code || 500);
   }
 }
 
@@ -43,9 +44,9 @@ function verify(token) {
   } catch (error) {
     _log(error);
     if (error.name === 'TokenExpiredError') {
-      throw Error.createError('Token hết hạn, vui lòng đăng nhập lại', 401);
+      throw createError('Token hết hạn, vui lòng đăng nhập lại', 401);
     } else {
-      throw Error.createError(error.message, error.code || 500);
+      throw createError(error.message, error.code || 500);
     }
   }
 }
