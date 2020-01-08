@@ -115,7 +115,11 @@ function log() {
  * @returns {object} object require
  */
 function md(name) {
-  return require(path.join(__dirroot, 'middleware', name));
+  if (typeof name === 'string') {
+    return require(path.join(__dirroot, 'middleware', name));
+  } else if (Array.isArray(name)) {
+    return name.map(n => require(path.join(__dirroot, 'middleware', n)));
+  }
 }
 
 /**
@@ -124,7 +128,11 @@ function md(name) {
  * @returns {object} object require
  */
 function rq(p) {
-  return require(path.join(__dirroot, p));
+  if (typeof name === 'string') {
+    return require(path.join(__dirroot, p));
+  } else if (Array.isArray(name)) {
+    return p.map(n => require(path.join(__dirroot, n)));
+  }
 }
 
 /**
