@@ -128,9 +128,9 @@ function md(name) {
  * @returns {object} object require
  */
 function rq(p) {
-  if (typeof name === 'string') {
+  if (typeof p === 'string') {
     return require(path.join(__dirroot, p));
-  } else if (Array.isArray(name)) {
+  } else if (Array.isArray(p)) {
     return p.map(n => require(path.join(__dirroot, n)));
   }
 }
