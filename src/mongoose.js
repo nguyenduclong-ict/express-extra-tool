@@ -24,7 +24,7 @@ function declareCRUD(model, name) {
     /**
      * Get Many
      */
-    ['getMany' + name]: async function(query, { page, limit, populate }) {
+    ['getMany' + name]: async function(query, { page, limit, populate } = {}) {
       populate = populate || [];
       page = Number(page) || 0;
       limit = Number(limit) || 10;
