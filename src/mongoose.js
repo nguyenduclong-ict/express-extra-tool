@@ -50,8 +50,13 @@ function declareCRUD(model, name) {
       };
       return { data: list || [], pager };
     },
-    ['create' + name]: function(docs) {
-      return model.create(docs);
+    ['create' + name]: function(doc, mode = 'create') {
+      if (mode === 'create') {
+        return model.create(doc);
+      } else if (mode === 'save') {
+        const newObj = new mode(doc);
+        return newObj.save();
+      }
     },
     ['createMany' + name]: function(docs) {
       return model.insertMany(docs);
