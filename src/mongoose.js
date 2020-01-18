@@ -29,10 +29,8 @@ function declareCRUD(model, name) {
       page = Number(page) || 0;
       limit = Number(limit) || 10;
       // create task
-      const task = model
-        .find(query)
-        .skip(limit * page)
-        .limit(limit);
+      const task = model.find(query).skip(limit * page);
+      if (limit) task.limit(limit);
       // populates
       populate.forEach(field => {
         task.populate(field);
@@ -54,7 +52,7 @@ function declareCRUD(model, name) {
       if (mode === 'create') {
         return model.create(doc);
       } else if (mode === 'save') {
-        const newObj = new mode(doc);
+        const newObj = new model(doc);
         return newObj.save();
       }
     },
