@@ -59,18 +59,20 @@ function declareCRUD(model, name) {
     ['createMany' + name]: function(docs) {
       return model.insertMany(docs);
     },
-    ['update' + name]: function(conditions, data, upsert = false) {
+    ['update' + name]: function(conditions, data, options) {
       return model.findOneAndUpdate(conditions, data, {
         new: true,
         setDefaultsOnInsert: true,
-        upsert
+        upsert: false,
+        ...options
       });
     },
-    ['updateMany' + name]: function(conditions, data, create = false) {
+    ['updateMany' + name]: function(conditions, data, options = {}) {
       return model.updateMany(conditions, data, {
         upsert: true,
         setDefaultsOnInsert: true,
-        new: true
+        new: true,
+        ...options
       });
     },
     ['delete' + name]: function(conditions) {
