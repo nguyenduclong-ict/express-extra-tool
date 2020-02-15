@@ -24,29 +24,43 @@ function declareCRUD(model, name) {
     /**
      * Get Many
      */
-    ['getMany' + name]: async function(query, { page, limit, populate } = {}) {
-      populate = populate || [];
-      page = Number(page) || 0;
-      limit = Number(limit) || 10;
-      // create task
-      const task = model.find(query).skip(limit * page);
-      if (limit) task.limit(limit);
-      // populates
-      populate.forEach(field => {
-        task.populate(field);
-      });
-      const [list, count] = await Promise.all([
-        task.lean().exec(),
-        model.countDocuments(query)
-      ]);
-      // pager
-      const pager = {
-        page: page,
-        total: count,
-        page_size: limit,
-        total_page: Math.ceil(count / limit)
-      };
-      return { data: list || [], pager };
+    ['getMany' + name]: async function(
+      query,
+      { page = 0, limit = 10, populate = [], pagination = true } = {}
+    ) {
+      if (pagination) {
+        page = Number(page);
+        limit = Number(limit);
+
+        // skip and limit
+        const task = model
+          .find(query)
+          .skip(limit * page)
+          .limit(limit);
+
+        // populates
+        populate.forEach(field => {
+          task.populate(field);
+        });
+
+        const [list, count] = await Promise.all([
+          task.lean().exec(),
+          model.countDocuments(query)
+        ]);
+        // pager
+        const pager = {
+          page: page,
+          total: count,
+          page_size: limit,
+          total_page: Math.ceil(count / limit)
+        };
+        return { data: list || [], pager };
+      } else {
+        return model
+          .find(query)
+          .lean()
+          .exec();
+      }
     },
     ['create' + name]: function(doc, mode = 'create') {
       if (mode === 'create') {
