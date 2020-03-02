@@ -47,6 +47,7 @@ function declareCRUD(model, name) {
           task.lean().exec(),
           model.countDocuments(query)
         ]);
+
         // pager
         const pager = {
           page: page,

@@ -176,7 +176,10 @@ function escapeRegex(string = '') {
  * @param {*} query Object
  * @returns {{query, options}} {query, options}
  */
-function validateQuery(query, optionsKey = ['$page', '$limit', '$populate']) {
+function validateQuery(
+  query,
+  optionsKey = ['$page', '$limit', '$populate', '$pagination']
+) {
   query = omit(query);
   const q = {};
   const opts = {};
@@ -184,6 +187,9 @@ function validateQuery(query, optionsKey = ['$page', '$limit', '$populate']) {
     if (optionsKey.includes(key)) {
       if (key === '$populate' && typeof query[key] === 'string') {
         query[key] = query[key].split(',');
+      }
+      if (key === '$pagination') {
+        query[key] = query[key] === 'true' || query[key] === true;
       }
       opts[key.replace('$', '')] = query[key];
     } else {
